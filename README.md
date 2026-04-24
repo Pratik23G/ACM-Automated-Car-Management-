@@ -34,7 +34,7 @@ Responsible for:
 - Trip detection 
 
 ## Backend 
-- External API integration (Tiny Fish)
+- External API integration (TinyFish)
 - Operating layer, trip telemetry processing (Express)
 - Voice interface layer (Vapi)
 
