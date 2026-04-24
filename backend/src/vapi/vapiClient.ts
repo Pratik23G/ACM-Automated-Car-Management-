@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const VAPI_API_KEY = ProcessingInstruction. env.VAPI_API_KEY;
+const VAPI_API_KEY = process.env.VAPI_API_KEY;
 
 export async function sendToVapi(payload: any) {
     const response = await axios.post(
