@@ -3,7 +3,7 @@ import {
   handleMaintenanceVoice,
   handleFuelVoice,
   handleCopilotVoice,
-} from "./vapiHandlers";
+} from "./vapiHandlers.js";
 
 export async function vapiRoutes(app: FastifyInstance) {
   
