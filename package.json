@@ -1,0 +1,19 @@
+{
+  "name": "acm-vapi-gitops",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "push:dev": "tsx scripts/push.ts dev",
+    "push:prod": "tsx scripts/push.ts prod"
+  },
+  "dependencies": {
+    "@vapi-ai/server-sdk": "^1.2.0",
+    "yaml": "^2.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.0"
+  }
+}

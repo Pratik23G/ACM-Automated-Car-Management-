@@ -1,0 +1,27 @@
+name: get-fuel-summary
+type: function
+async: false
+messages:
+  - type: request-start
+    content: "Pulling up local fuel prices for you."
+  - type: request-complete
+    content: "Got the fuel summary."
+  - type: request-failed
+    content: "Couldn't retrieve fuel data right now. Please try again."
+function:
+  name: get_fuel_summary
+  description: >
+    Returns a fuel market summary scoped to the user's primary driving zone.
+    Includes local average price per gallon, cheapest available price,
+    name and distance of the cheapest station, week-over-week price delta,
+    weekly commute cost in dollars, and projected monthly fuel cost.
+  parameters:
+    type: object
+    properties:
+      vehicle_id:
+        type: string
+        description: Unique identifier for the vehicle
+    required:
+      - vehicle_id
+server:
+  url: https://blazer-waffle-silicon.ngrok-free.dev/fuel/summary

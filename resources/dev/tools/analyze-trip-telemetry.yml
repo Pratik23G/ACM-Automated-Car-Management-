@@ -1,0 +1,31 @@
+name: analyze-trip-telemetry
+type: function
+async: false
+messages:
+  - type: request-start
+    content: "Let me pull up your latest trip data."
+  - type: request-complete
+    content: "Got your trip data."
+  - type: request-failed
+    content: "I couldn't retrieve your trip data right now. Please try again in a moment."
+function:
+  name: analyze_trip_telemetry
+  description: >
+    Finalizes and analyzes the most recent trip for a vehicle. Pulls raw sensor
+    events from Redis, computes hard-braking count and rate, sharp-turn count
+    and rate, and hard-acceleration patterns. Returns a TripTelemetrySummary
+    that feeds into maintenance interval adjustments.
+  parameters:
+    type: object
+    properties:
+      vehicle_id:
+        type: string
+        description: Unique identifier for the vehicle
+      trip_id:
+        type: string
+        description: ID of the trip to finalize and analyze
+    required:
+      - vehicle_id
+      - trip_id
+server:
+  url: https://blazer-waffle-silicon.ngrok-free.dev/trip/finalize

@@ -1,0 +1,20 @@
+name: ACM Voice Copilot
+members:
+  - assistantId: maintenance-agent
+    assistantDestinations:
+      - type: assistant
+        assistantId: fuel-agent
+        message: "Sure — let me connect you to the Fuel Copilot right now."
+        description: >
+          Transfer when the user asks about gas prices, fuel costs, cheapest
+          stations near them, fill-up timing, weekly fuel spend, or any
+          fuel-related topic.
+  - assistantId: fuel-agent
+    assistantDestinations:
+      - type: assistant
+        assistantId: maintenance-agent
+        message: "Of course — let me hand you over to the Maintenance Copilot."
+        description: >
+          Transfer when the user asks about oil changes, brake wear, tire life,
+          coolant, air filter, engine health, maintenance schedules, service
+          intervals, or any vehicle service topic.

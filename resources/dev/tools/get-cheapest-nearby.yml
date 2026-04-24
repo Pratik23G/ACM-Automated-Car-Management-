@@ -1,0 +1,32 @@
+name: get-cheapest-nearby
+type: function
+async: false
+messages:
+  - type: request-start
+    content: "Finding the cheapest station near you."
+  - type: request-complete
+    content: "Found nearby stations."
+  - type: request-failed
+    content: "Couldn't retrieve nearby stations right now. Please try again."
+function:
+  name: get_cheapest_nearby
+  description: >
+    Returns a list of gas stations within the specified radius of the vehicle's
+    current or most recent location, sorted by price per gallon ascending.
+    Each result includes the station name, brand, address, distance in miles,
+    price per gallon, fuel grade, and savings vs. local average.
+  parameters:
+    type: object
+    properties:
+      vehicle_id:
+        type: string
+        description: Unique identifier for the vehicle
+      max_distance_miles:
+        type: number
+        description: >
+          Maximum search radius in miles. Defaults to 2 if not specified.
+        default: 2
+    required:
+      - vehicle_id
+server:
+  url: https://blazer-waffle-silicon.ngrok-free.dev/fuel/cheapest-nearby

@@ -1,0 +1,41 @@
+name: get-maintenance-estimates
+type: function
+async: false
+messages:
+  - type: request-start
+    content: "Checking your maintenance estimates now."
+  - type: request-complete
+    content: "Got your maintenance data."
+  - type: request-failed
+    content: "Couldn't retrieve maintenance estimates right now. Please try again."
+function:
+  name: get_maintenance_estimates
+  description: >
+    Returns behavior-adjusted maintenance estimates for one or all components
+    of a vehicle. Each estimate includes the base OEM interval, the adjusted
+    interval based on driving behavior, due mileage, urgency level, confidence
+    score, a plain-English explanation, and the top driving factors behind any
+    interval change (with metric name, value, baseline, and multiplier).
+  parameters:
+    type: object
+    properties:
+      vehicle_id:
+        type: string
+        description: Unique identifier for the vehicle
+      component:
+        type: string
+        enum:
+          - oil
+          - brakes
+          - tires
+          - coolant
+          - air_filter
+          - all
+        description: >
+          Maintenance component to check. Use 'all' to retrieve a full
+          report across all tracked components.
+    required:
+      - vehicle_id
+      - component
+server:
+  url: https://blazer-waffle-silicon.ngrok-free.dev/maintenance/estimates
