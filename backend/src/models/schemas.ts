@@ -139,3 +139,41 @@ export const CheapestNearbyQuerySchema = z.object({
   max_distance_miles: z.coerce.number().positive().default(2),
 })
 export type CheapestNearbyQuery = z.infer<typeof CheapestNearbyQuerySchema>
+
+// ---------------------------------------------------------------------------
+// Weather
+// ---------------------------------------------------------------------------
+
+export const WeatherSnapshotSchema = z.object({
+  location: z.string(),
+  lat: z.number(),
+  lon: z.number(),
+  temperature_c: z.number(),
+  precipitation_mm: z.number(),
+  wind_speed_kmh: z.number(),
+  weather_code: z.number().int(),
+  timestamp: z.string().datetime(),
+})
+export type WeatherSnapshot = z.infer<typeof WeatherSnapshotSchema>
+
+export const WeatherRiskFactorSchema = z.object({
+  coolantStressMultiplier: z.number(),   // 1.0 = no change, >1 = more stress
+  oilIntervalMultiplier: z.number(),     // <1 = shorter interval
+  tireWearMultiplier: z.number(),        // >1 = faster wear
+  heatCycleIncrement: z.number().int(), // 0 or 1 per day
+  reasons: z.array(z.string()),
+})
+export type WeatherRiskFactor = z.infer<typeof WeatherRiskFactorSchema>
+
+// ---------------------------------------------------------------------------
+// Fuel ingest
+// ---------------------------------------------------------------------------
+
+export const FuelSnapshotSchema = z.object({
+  zone: z.string(),
+  avg_price_usd: z.number(),
+  cheapest_station_price: z.number(),
+  cheapest_station_name: z.string(),
+  timestamp: z.string().datetime(),
+})
+export type FuelSnapshot = z.infer<typeof FuelSnapshotSchema>

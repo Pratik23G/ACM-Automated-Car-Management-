@@ -1,7 +1,7 @@
-import { sendToVapi } from "./vapiClient";
-import { maintenancePrompt } from "./prompts/maintenancePrompt";
-import { fuelPrompt } from "./prompts/fuelPrompt";
-import { copilotPrompt } from "./prompts/copilotPrompt";
+import { sendToVapi } from "./vapiClient.js";
+import { maintenancePrompt } from "./prompts/maintenancePrompt.js";
+import { fuelPrompt } from "./prompts/fuelPrompt.js";
+import { copilotPrompt } from "./prompts/copilotPrompt.js";
 
 export async function handleMaintenanceVoice(data: any) {
   const prompt = maintenancePrompt(data);
