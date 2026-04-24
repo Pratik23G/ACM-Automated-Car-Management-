@@ -26,12 +26,12 @@ Maintenance Agent analyzes driving behavior and servicehistory to predict and ad
 # System Architecture
 ## iOS App
 Responsible for: 
--Location tracking 
--Vehicle setup
--Service log input
--UI rendering 
--Offline caching 
--Trip detection 
+- Location tracking 
+- Vehicle setup
+- Service log input
+- UI rendering 
+- Offline caching 
+- Trip detection 
 
 ## Backend 
 -External API integration (Tiny Fish)
