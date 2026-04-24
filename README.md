@@ -48,7 +48,7 @@ Computes dynamic wear estimates
 
 # Key Features
 
-##Trip Intelligence
+## Trip Intelligence
 - real-time driving behavior analysis
 - route clustering 
 - post-trip breakdowns
