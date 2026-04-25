@@ -1,52 +1,36 @@
-# ACM2 Platform Migration
+# ACM Automated Car Management
 
-ACM2 now includes a new Expo React Native frontend and a Node + Express + TypeScript backend scaffold for hackathon agent integrations.
+ACM is an agentic vehicle intelligence system for maintenance guidance, fuel optimization, trip analytics, and voice copilot flows. The repository now contains the native `ACM2` iOS app, a React Native `mobile` client, and a backend workspace for fuel, maintenance, copilot, and Vapi integration work.
 
-## Structure
+## Project Structure
 
-- `mobile/`: Expo + TypeScript app that replaces the SwiftUI client during migration.
-- `backend/`: Express + TypeScript API layer that owns Tinyfish, Redis, Vapi, and model integrations.
-- `ACM2/`: Existing SwiftUI code kept as migration reference while the new app is wired up.
+- `ACM2/`: native SwiftUI iOS app that builds and runs directly in the iOS simulator.
+- `ACM2Widget/`: widget extension for quick trip controls and glanceable vehicle state.
+- `mobile/`: Expo + TypeScript client used for parallel product and backend iteration.
+- `backend/`: Node/TypeScript backend code for fuel, maintenance, telemetry, copilot, and Vapi-connected voice flows.
 
-## Agent Architecture
+## Core Capabilities
 
-### Fuel Agent
+- Maintenance intelligence that adjusts service intervals based on driving behavior and service history.
+- Fuel optimization that surfaces local price signals, route-aware savings opportunities, and fill-up guidance.
+- Trip intelligence for route history, driving behavior, and post-trip summaries.
+- Voice copilot flows that combine backend memory with Vapi handoff and spoken summaries.
 
-- Frontend sends profile, weekly driving data, route habits, and fuel preferences to `POST /fuel/summary`.
-- Backend calls Tinyfish for price intelligence and fuel-market signals.
-- Backend stores recent summaries and query context in Redis.
-- AI model provider creates personalized recommendations and notification decisions.
-- Frontend renders returned cards automatically.
+## Architecture Notes
 
-### Maintenance Agent
+- The mobile and native apps should treat the backend as the integration point for Tinyfish, Redis, Vapi, and model APIs.
+- API keys and backend-only credentials belong in backend environment files, not in client bundles.
+- The backend currently contains both the newer ACM2 Express-style routes and older Fastify/Vapi scaffolding from previous iterations that are being reconciled over time.
 
-- Frontend sends odometer, service history, and driving behavior to `POST /maintenance/analyze`.
-- Backend calculates adjusted service intervals for oil, tires, brakes, coolant, and air filter.
-- AI model provider explains estimate changes and recommended actions.
-- Frontend renders returned maintenance cards automatically.
+## Current Backend Flow
 
-### Copilot + Voice
+- `POST /fuel/summary` generates fuel cards and recommendations from vehicle profile and route context.
+- `POST /maintenance/analyze` computes maintenance estimates and service urgency.
+- `GET /copilot/daily-brief` and `POST /copilot/query` merge cached agent context into one copilot experience.
+- `POST /voice/summary` and `GET /vapi/config` support Vapi-oriented voice summary and runtime config flows.
 
-- `GET /copilot/daily-brief` returns a merged daily agent brief.
-- `POST /copilot/query` answers typed questions using the latest cached agent context.
-- `POST /voice/summary` prepares a Vapi-ready voice brief.
+## Validation
 
-## Frontend Rules
-
-- The mobile app never holds Tinyfish, Redis, Vapi, or model API secrets.
-- The only client environment value should be the backend base URL.
-- All structured agent responses flow through typed backend clients.
-
-## Backend Rules
-
-- Keep all API keys in `backend/.env`.
-- Tinyfish, Redis, Vapi, and LLM calls live only in backend providers.
-- Controllers return typed JSON contracts that the app can render as cards and actions.
-
-## Next Integration Steps
-
-1. Install workspace dependencies with `npm install` at the repo root.
-2. Fill in `backend/.env` using `backend/.env.example`.
-3. Replace the stub provider methods with real Tinyfish, Redis, Vapi, and model calls.
-4. Point Expo to your backend URL with `EXPO_PUBLIC_API_BASE_URL`.
-5. Remove SwiftUI entry points only after the Expo flow reaches feature parity you want.
+- Install dependencies from the repo root with `npm install`.
+- Run the backend from the `backend` workspace and point clients at it through environment config.
+- Build the `ACM2` Xcode scheme when you want to test the native iOS app directly in Simulator.
