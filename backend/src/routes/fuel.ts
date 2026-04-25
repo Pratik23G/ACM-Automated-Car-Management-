@@ -5,6 +5,10 @@ import {
   FuelMarketSummary,
   StationRecommendation,
 } from '../models/schemas.js'
+import redis from '../providers/redisClient.js'
+
+const FUEL_INGEST_KEY = 'fuel:sf_zone:latest'
+const FUEL_TTL = 93600 // 26 hours
 
 export default async function fuelRoutes(fastify: FastifyInstance) {
   fastify.get('/fuel/summary', async (
@@ -101,5 +105,27 @@ export default async function fuelRoutes(fastify: FastifyInstance) {
       .sort((a, b) => a.pricePerGallon - b.pricePerGallon)
 
     return reply.status(200).send({ vehicle_id, stations })
+  })
+
+  // POST /fuel/ingest — called by Nexla pipeline, stores snapshot in Redis
+  fastify.post('/fuel/ingest', async (request: FastifyRequest, reply: FastifyReply) => {
+    const body = request.body as {
+      zone: string
+      avg_price_usd: number
+      cheapest_station_price: number
+      cheapest_station_name?: string
+      timestamp: string
+    }
+    if (!body) return reply.status(400).send({ error: 'Missing body' })
+
+    await redis.setex(FUEL_INGEST_KEY, FUEL_TTL, JSON.stringify(body))
+    return reply.status(200).send({ ok: true, key: FUEL_INGEST_KEY })
+  })
+
+  // GET /fuel/current — read latest fuel snapshot from Redis
+  fastify.get('/fuel/current', async (_request: FastifyRequest, reply: FastifyReply) => {
+    const data = await redis.get(FUEL_INGEST_KEY)
+    if (!data) return reply.status(404).send({ error: 'No fuel snapshot found. Pipeline may not have run yet.' })
+    return reply.status(200).send(JSON.parse(data))
   })
 }
