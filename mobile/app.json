@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "ACM2",
+    "slug": "acm2",
+    "scheme": "acm2",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#f3efe7"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}

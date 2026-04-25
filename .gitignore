@@ -1,23 +1,15 @@
-# Environment secrets — never commit
-.env.*
-!.env.*.example
-
-# Dependencies
-node_modules/
-backend/node_modules/
-
-# Build output
-backend/dist/
-
-# Vapi state (contains org UUIDs — commit if you want reproducible pushes, otherwise ignore)
-.vapi-state.*.json
-
-# ngrok config
-.ngrok2/
-
-# macOS
 .DS_Store
-
-# IDE
-.vscode/
-.idea/
+Archive.zip
+build/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+node_modules/
+dist/
+.env
+.env.local
+mobile/.expo/
+mobile/.expo-shared/
+mobile/node_modules/
+backend/node_modules/
+backend/dist/

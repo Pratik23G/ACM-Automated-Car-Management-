@@ -1,19 +1,17 @@
 {
-  "name": "acm-vapi-gitops",
-  "version": "1.0.0",
+  "name": "acm2-platform",
   "private": true,
-  "type": "module",
+  "workspaces": [
+    "mobile",
+    "backend"
+  ],
   "scripts": {
-    "push:dev": "tsx scripts/push.ts dev",
-    "push:prod": "tsx scripts/push.ts prod"
-  },
-  "dependencies": {
-    "@vapi-ai/server-sdk": "^1.2.0",
-    "yaml": "^2.7.0"
-  },
-  "devDependencies": {
-    "@types/node": "^22.0.0",
-    "tsx": "^4.19.0",
-    "typescript": "^5.5.0"
+    "mobile:start": "npm run start --workspace mobile",
+    "mobile:ios": "npm run ios --workspace mobile",
+    "mobile:android": "npm run android --workspace mobile",
+    "mobile:typecheck": "npm run typecheck --workspace mobile",
+    "backend:dev": "npm run dev --workspace backend",
+    "backend:build": "npm run build --workspace backend",
+    "backend:typecheck": "npm run typecheck --workspace backend"
   }
 }
