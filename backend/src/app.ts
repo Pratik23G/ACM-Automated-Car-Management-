@@ -20,6 +20,7 @@ import { createMaintenanceRouter } from "./routes/maintenanceRoutes.js";
 import { createCopilotRouter } from "./routes/copilotRoutes.js";
 import { createVoiceRouter } from "./routes/voiceRoutes.js";
 import { createVapiRouter } from "./routes/vapiRoutes.js";
+import { createIngestRouter } from "./routes/ingestRoutes.js";
 
 const app = express();
 
@@ -56,6 +57,7 @@ app.use("/maintenance", createMaintenanceRouter(maintenanceController));
 app.use("/copilot", createCopilotRouter(copilotController));
 app.use("/voice", createVoiceRouter(voiceController));
 app.use("/vapi", createVapiRouter(vapiController));
+app.use("/", createIngestRouter());
 
 app.use(errorHandler);
 

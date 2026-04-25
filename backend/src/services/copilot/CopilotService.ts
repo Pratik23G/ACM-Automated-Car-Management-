@@ -48,7 +48,7 @@ export class CopilotService {
       profile,
       latestFuelHeadline: fuel?.newsHeadline,
       latestMaintenanceHeadline: maintenance?.cards[0]?.title,
-      recentTrips: trips
+      recentTrips: trips ?? undefined
     });
   }
 

@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "dotenvx run --env-file=../.env.dev -- tsx watch src/index.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
     "typecheck": "tsc --noEmit"
@@ -12,32 +12,18 @@
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "ioredis": "^5.4.1",
     "redis": "^5.8.0",
-    "zod": "^3.24.0"
+    "zod": "^3.24.0",
+    "axios": "^1.15.2",
+    "openai": "^6.34.0"
   },
   "devDependencies": {
+    "@dotenvx/dotenvx": "^1.63.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
     "@types/node": "^22.15.0",
     "tsx": "^4.20.0",
     "typescript": "^5.9.0"
-    "dev": "dotenvx run --env-file=../.env.dev -- tsx watch src/server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js"
-  },
-  "dependencies": {
-    "@fastify/cors": "^11.2.0",
-    "axios": "^1.15.2",
-    "dotenv": "^17.4.2",
-    "fastify": "^5.8.5",
-    "ioredis": "^5.4.1",
-    "openai": "^6.34.0",
-    "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "@dotenvx/dotenvx": "^1.63.0",
-    "@types/node": "^20.14.0",
-    "tsx": "^4.16.0",
-    "typescript": "^5.5.0"
   }
 }
